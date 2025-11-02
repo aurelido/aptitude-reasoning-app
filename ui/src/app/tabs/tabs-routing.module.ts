@@ -16,6 +16,14 @@ const routes: Routes = [
         loadComponent: () => import('../pages/categories/categories.page').then(m => m.CategoriesPage)
       },
       {
+        path: 'categories/:slug',
+        loadComponent: () => import('../pages/category/category.page').then(m => m.CategoryPage)
+      },
+      {
+        path: 'categories/:slug/topic/:topicSlug',
+        loadComponent: () => import('../pages/topic/topic.page').then(m => m.TopicPage)
+      },
+      {
         path: 'progress',
         loadComponent: () => import('../pages/progress/progress.page').then(m => m.ProgressPage)
       },

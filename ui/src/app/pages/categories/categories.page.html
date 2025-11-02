@@ -20,7 +20,7 @@
   <div class="categories-container">
     @for (c of filtered(); track c.slug) {
       <ion-card 
-        [routerLink]="['/categories', c.slug]" 
+        [routerLink]="['/tabs/categories', c.slug]" 
         class="category-card"
         button>
       <ion-card-content class="ion-no-padding">

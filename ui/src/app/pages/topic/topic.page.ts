@@ -101,7 +101,7 @@ export class TopicPage {
   }
 
   goBack() {
-    this.router.navigate(['/categories', this.categorySlug]);
+    this.router.navigate(['/tabs/categories', this.categorySlug]);
   }
 
   selectDifficulty(difficulty: Difficulty) {

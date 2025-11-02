@@ -219,7 +219,7 @@ export class CategoryPage {
   }
 
   goBack() {
-    this.router.navigate(['/categories']);
+    this.router.navigate(['/tabs/categories']);
   }
 
   openFilterModal() {
@@ -236,7 +236,7 @@ export class CategoryPage {
   }
 
   navigateToTopic(topic: Topic) {
-    this.router.navigate(['/categories', this.slug, 'topic', this.slugify(topic.name)]);
+    this.router.navigate(['/tabs/categories', this.slug, 'topic', this.slugify(topic.name)]);
   }
 
   private slugify(text: string): string {

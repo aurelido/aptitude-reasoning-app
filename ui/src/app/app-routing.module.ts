@@ -18,18 +18,6 @@ const routes: Routes = [
   {
     path: 'onboarding',
     loadComponent: () => import('./pages/onboarding/onboarding.page').then(m => m.OnboardingPage)
-  },
-  {
-    path: 'categories',
-    loadComponent: () => import('./pages/categories/categories.page').then(m => m.CategoriesPage)
-  },
-  {
-    path: 'categories/:slug',
-    loadComponent: () => import('./pages/category/category.page').then(m => m.CategoryPage)
-  },
-  {
-    path: 'categories/:slug/topic/:topicSlug',
-    loadComponent: () => import('./pages/topic/topic.page').then(m => m.TopicPage)
   }
 ];
 @NgModule({
