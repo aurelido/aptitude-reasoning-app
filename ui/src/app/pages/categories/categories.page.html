@@ -23,26 +23,25 @@
         [routerLink]="['/categories', c.slug]" 
         class="category-card"
         button>
-        <ion-card-content class="ion-no-padding">
-          <div class="category-card-inner">
+      <ion-card-content class="ion-no-padding">
+        <div class="category-card-inner">
+          @if (c.iconSvg) {
+            <div class="category-svg-container">
+              <img [src]="c.iconSvg" [alt]="c.name + ' icon'" class="category-svg-icon" />
+            </div>
+          } @else {
             <div [class]="'category-icon ' + getCategoryColorClass(c.slug)">
-              @if (c.icon && !c.iconSvg) {
-                <ion-icon [name]="c.icon"></ion-icon>
-              }
-              @if (c.iconSvg) {
-                <img [src]="c.iconSvg" [alt]="c.name + ' icon'" class="category-svg-icon" />
-              }
+              <ion-icon [name]="c.icon"></ion-icon>
             </div>
-            
-            <div class="category-content">
-              <h3 class="category-title">{{ c.name }}</h3>
-              <p class="category-description">{{ c.description }}</p>
-              <p class="category-topics">{{ c.topics }} topics available</p>
-            </div>
-            
-            <ion-icon name="chevron-forward" class="chevron-icon"></ion-icon>
+          }
+          
+          <div class="category-content">
+            <h3 class="category-title">{{ c.name }}</h3>
+            <p class="category-description">{{ c.description }}</p>
+            <p class="category-topics">{{ c.topics }} topics available</p>
           </div>
-        </ion-card-content>
+        </div>
+      </ion-card-content>
       </ion-card>
     }
   </div>

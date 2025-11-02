@@ -25,6 +25,7 @@ export class CategoriesPage {
       slug: 'abstract-reasoning',
       name: 'Abstract Reasoning',
       icon: 'shapes-outline',
+      iconSvg: '../../../assets/categories/critical-thinking.svg',
       description: 'Pattern recognition and logical sequences',
       topics: 24,
     },

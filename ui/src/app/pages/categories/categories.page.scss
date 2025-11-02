@@ -1,7 +1,15 @@
 .categories-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .category-card {
@@ -22,32 +30,46 @@
 
 .category-card-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 1.5rem 1rem;
   gap: 1rem;
-  padding: 1rem;
+  min-height: 240px;
 }
 
+// SVG Container - takes 60% of card space
+.category-svg-container {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+
+  .category-svg-icon {
+    width: 100%;
+    height: 100%;
+    max-width: 160px;
+    max-height: 160px;
+    object-fit: contain;
+  }
+}
+
+// Fallback icon for categories without SVG
 .category-icon {
-  width: 56px;
-  height: 56px;
-  min-width: 56px;
-  border-radius: 12px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-primary-shade));
+  margin-bottom: 0.5rem;
 
   ion-icon {
-    font-size: 28px;
+    font-size: 40px;
     color: white;
-  }
-
-  .category-svg-icon {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    // Remove filter to show original SVG colors
-    // Or use filter to make it white: filter: brightness(0) invert(1);
   }
 
   &.purple {
@@ -84,34 +106,29 @@
 }
 
 .category-content {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .category-title {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: #111827;
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.5rem 0;
 }
 
 .category-description {
   font-size: 0.875rem;
   color: #6b7280;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.4;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
 }
 
 .category-topics {
   font-size: 0.813rem;
   color: #9ca3af;
   margin: 0;
-}
-
-.chevron-icon {
-  font-size: 20px;
-  color: #9ca3af;
-  flex-shrink: 0;
+  font-weight: 500;
 }
 
 .custom-searchbar {
