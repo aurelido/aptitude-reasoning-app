@@ -1,0 +1,10 @@
+<app-onboarding-step
+  [imageSrc]="steps[current()].imageSrc"
+  [headline]="steps[current()].headline"
+  [description]="steps[current()].description"
+  [current]="current()"
+  [total]="total"
+  (next)="next()"
+  (back)="back()"
+  (skip)="skip()"
+></app-onboarding-step>
