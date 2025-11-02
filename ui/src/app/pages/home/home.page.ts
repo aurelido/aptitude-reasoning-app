@@ -28,6 +28,10 @@ export class HomePage {
     initials: 'SJ',
   });
 
+  // Mock notification count - in real app, this would come from a service
+  // Real-time updates via WebSocket, Server-Sent Events, or polling
+  unreadNotifications = signal<number>(3);
+
   constructor(private router: Router) {}
 
   get greeting(): string {
@@ -44,5 +48,15 @@ export class HomePage {
   navigateToSettings() {
     // TODO: Create settings page
     this.router.navigate(['/tabs/profile']); // Temporary redirect to profile
+  }
+
+  navigateToNotifications() {
+    // TODO: Create notifications page
+    // Mark notifications as read when navigating
+    // this.notificationService.markAllAsRead();
+    this.router.navigate(['/tabs/profile']); // Temporary redirect to profile
+    
+    // Simulate clearing badge (in real app, this happens after viewing notifications)
+    // setTimeout(() => this.unreadNotifications.set(0), 500);
   }
 }
