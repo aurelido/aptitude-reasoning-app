@@ -1,0 +1,171 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ category?.name }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openFilterModal()">
+        <ion-icon name="options-outline" slot="icon-only"></ion-icon>
+        <ion-badge *ngIf="activeFilterCount() > 0" color="primary" class="filter-badge">{{ activeFilterCount() }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar 
+      placeholder="Search topics..." 
+      [(ngModel)]="searchQuery"
+      (ionInput)="searchQuery.set($any($event.target).value)"
+      class="custom-searchbar">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="category">
+  <!-- Category Overview Card -->
+  <ion-card [class]="'category-overview ' + category.color">
+    <ion-card-content>
+      <h3>About this category</h3>
+      <p>{{ category.description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Diagnostic Test Card -->
+  <ion-card class="diagnostic-card">
+    <ion-card-content class="ion-no-padding">
+      <div class="diagnostic-inner">
+        <div class="diagnostic-icon">
+          <ion-icon name="flag-outline"></ion-icon>
+        </div>
+        <div class="diagnostic-content">
+          <h3>Take Diagnostic Test</h3>
+          <p>Assess your current skill level in {{ category.name }}</p>
+          <div class="diagnostic-meta">
+            <span><ion-icon name="time-outline"></ion-icon> 30 min</span>
+            <span><ion-icon name="trending-up-outline"></ion-icon> Get personalized insights</span>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Topics List -->
+  <div class="topics-section">
+    <div class="topics-header">
+      <h2>Topics</h2>
+      <p>{{ filteredTopics().length }} {{ filteredTopics().length === 1 ? 'topic' : 'topics' }}</p>
+    </div>
+
+    <div class="topics-grid" *ngIf="filteredTopics().length > 0">
+      <ion-card *ngFor="let topic of filteredTopics()" class="topic-card">
+        <ion-card-content class="ion-no-padding">
+          <div class="topic-inner">
+            <div class="topic-header">
+              <ion-icon [name]="getStatusIcon(topic.status)" [color]="getStatusColor(topic.status)"></ion-icon>
+              <div class="topic-info">
+                <h3>{{ topic.name }}</h3>
+                <ion-badge color="medium" class="questions-badge">{{ topic.questions }} Qs</ion-badge>
+              </div>
+            </div>
+
+            <div class="topic-progress" *ngIf="topic.progress > 0">
+              <div class="progress-info">
+                <span>Progress</span>
+                <span>{{ topic.progress }}%</span>
+              </div>
+              <ion-progress-bar [value]="topic.progress / 100"></ion-progress-bar>
+            </div>
+
+            <p class="topic-status" *ngIf="topic.progress === 0">
+              Not started yet
+            </p>
+
+            <ion-button 
+              expand="block" 
+              [color]="getButtonColor(topic.status)"
+              (click)="navigateToTopic(topic)">
+              {{ getButtonText(topic.status) }} Practice
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="empty-state" *ngIf="filteredTopics().length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+      <p>No topics match your filters</p>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Filter Modal -->
+<ion-modal [isOpen]="showFilterModal" (didDismiss)="closeFilterModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Filter Topics</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeFilterModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="filter-section">
+        <div class="filter-header">
+          <ion-label>Status</ion-label>
+          <ion-button *ngIf="filterStatus() !== 'all'" fill="clear" (click)="filterStatus.set('all')">
+            Clear
+          </ion-button>
+        </div>
+        <ion-radio-group [(ngModel)]="filterStatus" (ionChange)="filterStatus.set($any($event.detail).value)">
+          <ion-item>
+            <ion-radio value="all">All Topics</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="not-started">Not Started</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="in-progress">In Progress</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="completed">Completed</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-header">
+          <ion-label>Number of Questions</ion-label>
+          <ion-button *ngIf="filterQuestions() !== 'all'" fill="clear" (click)="filterQuestions.set('all')">
+            Clear
+          </ion-button>
+        </div>
+        <ion-radio-group [(ngModel)]="filterQuestions" (ionChange)="filterQuestions.set($any($event.detail).value)">
+          <ion-item>
+            <ion-radio value="all">All</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="1-35">1-35 Questions</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="36-45">36-45 Questions</ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="46+">46+ Questions</ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </div>
+
+      <div class="filter-actions">
+        <ion-button expand="block" fill="outline" (click)="clearFilters()">
+          Clear All Filters
+        </ion-button>
+        <ion-button expand="block" (click)="closeFilterModal()">
+          Apply Filters
+        </ion-button>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

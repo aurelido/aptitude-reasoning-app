@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>categories</ion-title>
+    <ion-title>Categories</ion-title>
+    <ion-buttons slot="end">
+      <ion-button aria-label="Filter and sort">
+        <ion-icon name="options-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar 
+      placeholder="Search categories or topics..." 
+      (ionInput)="onSearch($event)"
+      class="custom-searchbar">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">categories</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="categories-container">
+    <ion-card 
+      *ngFor="let c of filtered()" 
+      [routerLink]="['/categories', c.slug]" 
+      class="category-card"
+      button>
+      <ion-card-content class="ion-no-padding">
+        <div class="category-card-inner">
+          <div [class]="'category-icon ' + getCategoryColorClass(c.slug)">
+            <ion-icon [name]="c.icon"></ion-icon>
+          </div>
+          
+          <div class="category-content">
+            <h3 class="category-title">{{ c.name }}</h3>
+            <p class="category-description">{{ c.description }}</p>
+            <p class="category-topics">{{ c.topics }} topics available</p>
+          </div>
+          
+          <ion-icon name="chevron-forward" class="chevron-icon"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
