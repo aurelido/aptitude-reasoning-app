@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { OnboardingStepComponent, Step } from './steps/onboarding-step.component
   templateUrl: './onboarding.page.html',
   styleUrls: ['./onboarding.page.scss'],
 })
-export class OnboardingPage implements OnInit {
+export class OnboardingPage {
   steps: Step[] = [
     {
       imageSrc: 'assets/onboarding/step1.png',
@@ -44,8 +44,6 @@ export class OnboardingPage implements OnInit {
   readonly isLast = computed(() => this.current() === this.total - 1);
 
   constructor(private router: Router) {}
-
-  ngOnInit() {}
 
   next() {
     if (this.current() < this.total - 1) {

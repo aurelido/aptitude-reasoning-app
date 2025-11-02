@@ -42,6 +42,13 @@
     color: white;
   }
 
+  .category-svg-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
   &.purple {
     background: linear-gradient(135deg, #9333ea, #7e22ce);
   }

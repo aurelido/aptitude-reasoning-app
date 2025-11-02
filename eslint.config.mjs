@@ -36,7 +36,7 @@ export default [
       '**/*.cjs',
       '**/*.mjs',
     ],
-    // Override or add rules here
+    // place project-wide rules here
     rules: {},
   },
 ];

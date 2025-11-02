@@ -1,0 +1,9 @@
+/* Splash screen loading indicator styles */
+ion-progress-bar.brand-gradient {
+  /* Use brand colors for a subtle left-to-right gradient */
+  --progress-background: linear-gradient(90deg, var(--ion-color-primary), var(--ion-color-secondary));
+  /* Track and buffer kept very soft to avoid distraction */
+  --background: rgba(2, 6, 23, 0.08); /* slate-950 ~8% */
+  --buffer-background: rgba(2, 6, 23, 0.16);
+  height: 4px;
+}

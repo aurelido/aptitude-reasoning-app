@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
@@ -9,11 +9,4 @@ imports: [IonicModule, CommonModule],
   templateUrl: './progress.page.html',
   styleUrls: ['./progress.page.scss'],
 })
-export class ProgressPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class ProgressPage {}

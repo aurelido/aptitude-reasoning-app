@@ -26,7 +26,8 @@
       <ion-card-content class="ion-no-padding">
         <div class="category-card-inner">
           <div [class]="'category-icon ' + getCategoryColorClass(c.slug)">
-            <ion-icon [name]="c.icon"></ion-icon>
+            <ion-icon *ngIf="c.icon && !c.iconSvg" [name]="c.icon"></ion-icon>
+            <img *ngIf="c.iconSvg" [src]="c.iconSvg" [alt]="c.name + ' icon'" class="category-svg-icon" />
           </div>
           
           <div class="category-content">
