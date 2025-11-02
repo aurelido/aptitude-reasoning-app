@@ -173,3 +173,8 @@ Desktop.ini
 .github/instructions/nx.instructions.md
 .angular
 node_modules
+######################
+# Build Output
+######################
+/dist/
+
