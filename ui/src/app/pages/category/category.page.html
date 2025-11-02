@@ -9,7 +9,9 @@
     <ion-buttons slot="end">
       <ion-button (click)="openFilterModal()">
         <ion-icon name="options-outline" slot="icon-only"></ion-icon>
-        <ion-badge *ngIf="activeFilterCount() > 0" color="primary" class="filter-badge">{{ activeFilterCount() }}</ion-badge>
+        @if (activeFilterCount() > 0) {
+          <ion-badge color="primary" class="filter-badge">{{ activeFilterCount() }}</ion-badge>
+        }
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,7 +25,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="category">
+@if (category) {
+<ion-content class="ion-padding">
   <!-- Category Overview Card -->
   <ion-card [class]="'category-overview ' + category.color">
     <ion-card-content>
@@ -58,8 +61,10 @@
       <p>{{ filteredTopics().length }} {{ filteredTopics().length === 1 ? 'topic' : 'topics' }}</p>
     </div>
 
-    <div class="topics-grid" *ngIf="filteredTopics().length > 0">
-      <ion-card *ngFor="let topic of filteredTopics()" class="topic-card">
+    @if (filteredTopics().length > 0) {
+      <div class="topics-grid">
+        @for (topic of filteredTopics(); track topic.name) {
+          <ion-card class="topic-card">
         <ion-card-content class="ion-no-padding">
           <div class="topic-inner">
             <div class="topic-header">
@@ -70,17 +75,21 @@
               </div>
             </div>
 
-            <div class="topic-progress" *ngIf="topic.progress > 0">
+            @if (topic.progress > 0) {
+              <div class="topic-progress">
               <div class="progress-info">
                 <span>Progress</span>
                 <span>{{ topic.progress }}%</span>
               </div>
-              <ion-progress-bar [value]="topic.progress / 100"></ion-progress-bar>
-            </div>
+                <ion-progress-bar [value]="topic.progress / 100"></ion-progress-bar>
+              </div>
+            }
 
-            <p class="topic-status" *ngIf="topic.progress === 0">
-              Not started yet
-            </p>
+            @if (topic.progress === 0) {
+              <p class="topic-status">
+                Not started yet
+              </p>
+            }
 
             <ion-button 
               expand="block" 
@@ -89,16 +98,21 @@
               {{ getButtonText(topic.status) }} Practice
             </ion-button>
           </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
+          </ion-card-content>
+        </ion-card>
+        }
+      </div>
+    }
 
-    <div class="empty-state" *ngIf="filteredTopics().length === 0">
-      <ion-icon name="search-outline"></ion-icon>
-      <p>No topics match your filters</p>
-    </div>
+    @if (filteredTopics().length === 0) {
+      <div class="empty-state">
+        <ion-icon name="search-outline"></ion-icon>
+        <p>No topics match your filters</p>
+      </div>
+    }
   </div>
 </ion-content>
+}
 
 <!-- Filter Modal -->
 <ion-modal [isOpen]="showFilterModal" (didDismiss)="closeFilterModal()">
@@ -115,9 +129,11 @@
       <div class="filter-section">
         <div class="filter-header">
           <ion-label>Status</ion-label>
-          <ion-button *ngIf="filterStatus() !== 'all'" fill="clear" (click)="filterStatus.set('all')">
-            Clear
-          </ion-button>
+          @if (filterStatus() !== 'all') {
+            <ion-button fill="clear" (click)="filterStatus.set('all')">
+              Clear
+            </ion-button>
+          }
         </div>
         <ion-radio-group [(ngModel)]="filterStatus" (ionChange)="filterStatus.set($any($event.detail).value)">
           <ion-item>
@@ -138,9 +154,11 @@
       <div class="filter-section">
         <div class="filter-header">
           <ion-label>Number of Questions</ion-label>
-          <ion-button *ngIf="filterQuestions() !== 'all'" fill="clear" (click)="filterQuestions.set('all')">
-            Clear
-          </ion-button>
+          @if (filterQuestions() !== 'all') {
+            <ion-button fill="clear" (click)="filterQuestions.set('all')">
+              Clear
+            </ion-button>
+          }
         </div>
         <ion-radio-group [(ngModel)]="filterQuestions" (ionChange)="filterQuestions.set($any($event.detail).value)">
           <ion-item>

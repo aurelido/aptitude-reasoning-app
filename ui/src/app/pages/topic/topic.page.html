@@ -9,7 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="topicData">
+@if (topicData) {
+<ion-content class="ion-padding">
   <!-- Topic Overview Card -->
   <ion-card class="overview-card">
     <ion-card-content>
@@ -26,7 +27,8 @@
   </ion-card>
 
   <!-- Progress Summary Card (only if started) -->
-  <ion-card class="progress-card" *ngIf="topicData.status !== 'not-started'">
+  @if (topicData.status !== 'not-started') {
+    <ion-card class="progress-card">
     <ion-card-content>
       <div class="progress-header">
         <h3>Your Progress</h3>
@@ -76,7 +78,8 @@
         </div>
       </div>
     </ion-card-content>
-  </ion-card>
+    </ion-card>
+  }
 
   <!-- Learning Resources -->
   <div class="section">
@@ -111,7 +114,8 @@
         </ion-card-content>
       </ion-card>
       
-      <ion-card class="resource-card green" button *ngIf="topicData.hasFormulas">
+      @if (topicData.hasFormulas) {
+        <ion-card class="resource-card green" button>
         <ion-card-content class="ion-no-padding">
           <div class="resource-inner">
             <div class="resource-icon">
@@ -123,7 +127,8 @@
             </div>
           </div>
         </ion-card-content>
-      </ion-card>
+        </ion-card>
+      }
     </div>
   </div>
 
@@ -158,7 +163,8 @@
     <h2>Practice Modes</h2>
     
     <div class="modes-list">
-      <ion-card *ngFor="let mode of getPracticeModes()" class="mode-card" button>
+      @for (mode of getPracticeModes(); track mode.title) {
+        <ion-card class="mode-card" button>
         <ion-card-content class="ion-no-padding">
           <div class="mode-inner">
             <div class="mode-icon" [class]="mode.color">
@@ -167,18 +173,28 @@
             <div class="mode-content">
               <div class="mode-header">
                 <h3>{{ mode.title }}</h3>
-                <ion-badge color="success" *ngIf="mode.recommended">Recommended</ion-badge>
+                @if (mode.recommended) {
+                  <ion-badge color="success">Recommended</ion-badge>
+                }
               </div>
               <p>{{ mode.description }}</p>
               <div class="mode-meta">
-                <span *ngIf="mode.questions">{{ mode.questions }} questions</span>
-                <span *ngIf="mode.duration">• {{ mode.duration }}</span>
-                <span *ngIf="mode.cards">{{ mode.cards }} cards</span>
+                @if (mode.questions) {
+                  <span>{{ mode.questions }} questions</span>
+                }
+                @if (mode.duration) {
+                  <span>• {{ mode.duration }}</span>
+                }
+                @if (mode.cards) {
+                  <span>{{ mode.cards }} cards</span>
+                }
               </div>
             </div>
           </div>
         </ion-card-content>
-      </ion-card>
+        </ion-card>
+      }
     </div>
   </div>
 </ion-content>
+}
