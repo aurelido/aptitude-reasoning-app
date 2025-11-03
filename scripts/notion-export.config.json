@@ -1,0 +1,10 @@
+{
+  "sourceGlobs": [
+    "docs/adr/**/*.md",
+    "docs/adrs/**/*.md",
+    "docs/decisions/**/*.md",
+    "docs/ADR/**/*.md",
+    "docs/**/*.adr.md"
+  ],
+  "fallbackGlobs": ["docs/**/*.md"]
+}

@@ -25,13 +25,14 @@ export class CategoriesPage {
       slug: 'abstract-reasoning',
       name: 'Abstract Reasoning',
       icon: 'shapes-outline',
-      iconSvg: '../../../assets/categories/critical-thinking.svg',
+      iconSvg: 'assets/categories/abstract-reasoning.svg',
       description: 'Pattern recognition and logical sequences',
       topics: 24,
     },
     {
       slug: 'verbal-reasoning',
       name: 'Verbal Reasoning',
+      icon: 'chatbubbles-outline',
       iconSvg: 'assets/categories/verbal-reasoning.svg',
       description: 'Reading comprehension and language skills',
       topics: 32,
@@ -39,6 +40,7 @@ export class CategoriesPage {
     {
       slug: 'numerical-reasoning',
       name: 'Numerical Reasoning',
+      icon: 'calculator-outline',
       iconSvg: 'assets/categories/numerical-reasoning.svg',
       description: 'Mathematical problems and data analysis',
       topics: 28,
@@ -46,6 +48,7 @@ export class CategoriesPage {
     {
       slug: 'logical-reasoning',
       name: 'Logical Reasoning',
+      icon: 'bulb-outline',
       iconSvg: 'assets/categories/logical-reasoning.svg',
       description: 'Critical thinking and deductive reasoning',
       topics: 30,
@@ -60,6 +63,7 @@ export class CategoriesPage {
     {
       slug: 'diagrammatic-reasoning',
       name: 'Diagrammatic Reasoning',
+      icon: 'git-network-outline',
       iconSvg: 'assets/categories/diagrammatic-reasoning.svg',
       description: 'Process diagrams and flowcharts',
       topics: 18,
@@ -67,6 +71,7 @@ export class CategoriesPage {
     {
       slug: 'data-interpretation',
       name: 'Data Interpretation',
+      icon: 'bar-chart-outline',
       iconSvg: 'assets/categories/data-interpretation.svg',
       description: 'Charts, graphs, and statistical data',
       topics: 26,
@@ -74,6 +79,7 @@ export class CategoriesPage {
     {
       slug: 'critical-thinking',
       name: 'Critical Thinking',
+      icon: 'library-outline',
       iconSvg: 'assets/categories/critical-thinking.svg',
       description: 'Analytical and evaluative thinking',
       topics: 22,

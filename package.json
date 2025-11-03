@@ -19,7 +19,8 @@
     "cap:sync": "nx build ui && cap sync",
     "cap:ios": "cap run ios",
     "cap:android": "cap run android",
-    "clean": "rimraf dist .angular .nx"
+    "clean": "rimraf dist .angular .nx",
+    "docs:export:notion": "node scripts/export-to-notion.js"
   },
   "keywords": [],
   "devDependencies": {
@@ -80,6 +81,8 @@
     "@capacitor/status-bar": "^7.0.3",
     "@ionic/angular": "^8.7.8",
     "@tailwindcss/vite": "^4.1.16",
+    "@notionhq/client": "^2.2.15",
+    "fast-glob": "^3.3.2",
     "axios": "^1.6.0",
     "ionicons": "^8.0.13",
     "rxjs": "^7.8.0",
