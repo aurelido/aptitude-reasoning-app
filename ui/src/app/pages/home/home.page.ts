@@ -166,7 +166,7 @@ export class HomePage {
       description: '10 questions • Your weak areas',
       questionCount: 10,
       selectionStrategy: 'weak-areas',
-      icon: 'target',
+      icon: 'contract-outline',
       color: '#ef4444', // Red
     },
   ]);
