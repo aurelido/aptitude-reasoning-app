@@ -20,7 +20,10 @@
     "cap:ios": "cap run ios",
     "cap:android": "cap run android",
     "clean": "rimraf dist .angular .nx",
-    "docs:export:notion": "node scripts/export-to-notion.js"
+    "docs:export:notion": "node scripts/export-to-notion.js",
+    "api:dev": "ts-node-dev --respawn --transpile-only --project server/tsconfig.json server/src/index.ts",
+    "api:start": "node dist/server/index.js",
+    "api:build": "tsc -p server/tsconfig.json"
   },
   "keywords": [],
   "devDependencies": {
@@ -44,8 +47,12 @@
     "@swc-node/register": "^1.9.2",
     "@swc/core": "^1.14.0",
     "@swc/helpers": "~0.5.11",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
     "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "20.19.9",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^20.3.0",
     "autoprefixer": "^10.4.21",
@@ -62,6 +69,7 @@
     "tailwindcss": "^3.4.18",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "ts-node-dev": "^2.0.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0"
@@ -82,10 +90,18 @@
     "@ionic/angular": "^8.7.8",
     "@tailwindcss/vite": "^4.1.16",
     "@notionhq/client": "^2.2.15",
-    "fast-glob": "^3.3.2",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
     "ionicons": "^8.0.13",
     "rxjs": "^7.8.0",
+    "uuid": "^9.0.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "express-rate-limit": "^6.11.2",
     "zone.js": "~0.15.0"
   }
 }
