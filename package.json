@@ -101,6 +101,7 @@
     "uuid": "^9.0.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "express-rate-limit": "^6.11.2",
     "zone.js": "~0.15.0"
   }
 }

@@ -111,6 +111,17 @@ JWT_EXPIRES_IN=7d
 
 ## Swagger Documentation
 
+## Rate Limiting
+
+- Window: 1 hour
+- Free tier: 100 requests/hour (default)
+- Headers exposed:
+  - `X-RateLimit-Limit`
+  - `X-RateLimit-Remaining`
+  - `X-RateLimit-Reset` (epoch seconds)
+
+Applied to authenticated routes like `GET /v1/home`.
+
 In development mode, Swagger UI is automatically enabled at `/v1/docs`.
 
 Key routes are annotated with OpenAPI 3.1 specifications:
