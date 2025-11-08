@@ -14,7 +14,7 @@ export interface Step {
   imports: [CommonModule, IonicModule],
   template: `
   <!-- <ion-content class="ion-padding flex flex-col items-center justify-center min-h-screen"> -->
-  <ion-content class="min-h-[100dvh] bg-white relative overflow-hidden flex flex-col">
+  <ion-content [fullscreen]="true" class="min-h-[100dvh] bg-white overflow-hidden flex flex-col ion-padding bg-surface">
     <div class="pointer-events-none absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-70 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.18),transparent_70%)]"></div>
     <div class="pointer-events-none absolute -bottom-24 -right-24 w-[30rem] h-[30rem] rounded-full blur-3xl opacity-70 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.16),transparent_70%)]"></div>
 

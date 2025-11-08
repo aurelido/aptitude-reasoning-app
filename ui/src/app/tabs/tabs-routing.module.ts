@@ -32,6 +32,10 @@ const routes: Routes = [
         loadComponent: () => import('../pages/profile/profile.page').then(m => m.ProfilePage)
       },
       {
+        path: 'profile/edit',
+        loadComponent: () => import('../pages/edit-profile/edit-profile.page').then(m => m.EditProfilePage)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'

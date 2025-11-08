@@ -4,6 +4,23 @@ import { profiles, users } from '../data';
 
 export const usersRouter = Router();
 
+/**
+ * @openapi
+ * /users/me:
+ *   get:
+ *     summary: Get current user profile
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: UserProfile
+ *       401:
+ *         description: Unauthorized
+ *       429:
+ *         description: Rate limit exceeded
+ * */
+// GET /home
 usersRouter.get('/me', authMiddleware, (req: AuthedRequest, res) => {
   const profile = profiles.get(req.user!.id);
   if (!profile) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'User not found' } });
@@ -32,6 +49,24 @@ usersRouter.patch('/me', authMiddleware, (req: AuthedRequest, res) => {
   res.json(profile);
 });
 
+
+/**
+ * @openapi
+ * /users/me/preferences:
+ *   get:
+ *     summary: Get current user preferences
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: UserPreferences
+ *       401:
+ *         description: Unauthorized
+ *       429:
+ *         description: Rate limit exceeded
+ * */
+// GET /preferences
 usersRouter.get('/me/preferences', authMiddleware, (req: AuthedRequest, res) => {
   const user = users.get(req.user!.id);
   if (!user) return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'User not found' } });
