@@ -1,0 +1,65 @@
+<section class="recommended-topics-section">
+  <h3 class="section-title">Recommended For You</h3>
+
+  <div class="topics-list">
+    @for (topic of topics; track topic.id) {
+      <div class="topic-card" (click)="topicClick.emit(topic)">
+        <!-- Left color indicator -->
+        <div
+          class="topic-indicator"
+          [style.background-color]="topic.categoryColor"
+        ></div>
+
+        <!-- Main content -->
+        <div class="topic-content">
+          <div class="topic-header">
+            <h4 class="topic-title">{{ topic.title }}</h4>
+            <ion-icon name="chevron-forward" class="topic-arrow"></ion-icon>
+          </div>
+
+          <p class="topic-category">{{ topic.categoryName }}</p>
+
+          <!-- Status badge with icon -->
+          <div class="topic-status">
+            <ion-icon
+              [name]="getStatusIcon(topic.status)"
+              class="status-icon"
+            ></ion-icon>
+            <span class="status-label">{{ getStatusLabel(topic) }}</span>
+          </div>
+
+          <!-- Progress bar for in-progress topics -->
+          @if (topic.status === 'in-progress' && topic.progress !== undefined) {
+            <div class="topic-progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="topic.progress"
+              ></div>
+            </div>
+          }
+
+          <!-- Meta information -->
+          <div class="topic-meta">
+            <span class="meta-item">
+              <ion-icon
+                name="time-outline"
+                class="meta-icon"
+              ></ion-icon>
+              {{ topic.estimatedTime }} min
+            </span>
+            <span class="meta-item">
+              <ion-icon
+                name="help-circle-outline"
+                class="meta-icon"
+              ></ion-icon>
+              {{ topic.questionsCount }} questions
+            </span>
+            <span class="meta-item difficulty">
+              {{ getDifficultyLabel(topic.difficulty) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

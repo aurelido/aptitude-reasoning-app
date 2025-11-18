@@ -3,83 +3,34 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 
-type UserProfile = {
-  name: string;
-  firstName: string;
-  email: string;
-  avatar?: string;
-  initials: string;
-};
-
-type ContinueLearningActivity = {
-  id: string;
-  type: 'topic' | 'challenge' | 'test';
-  categorySlug: string;
-  topicSlug?: string;
-  title: string;
-  subtitle?: string;
-  progress: number; // 0-100
-  totalQuestions?: number;
-  completedQuestions?: number;
-  currentQuestionIndex?: number;
-  timeElapsed?: number; // seconds
-  lastAccessedAt: Date;
-  resumeUrl: string;
-};
-
-type DailyChallenge = {
-  id: string;
-  date: string; // ISO date string (YYYY-MM-DD)
-  title: string;
-  description: string;
-  totalQuestions: number;
-  timeLimit?: number; // minutes
-  completed: boolean;
-  completedAt?: Date;
-  score?: number; // 0-100
-  attempts: number;
-  maxAttempts: number; // typically 1 for daily challenges
-};
-
-type QuickPractice = {
-  id: string;
-  title: string;
-  description: string;
-  questionCount: number;
-  selectionStrategy: 'random' | 'weak-areas' | 'mixed';
-  icon: string;
-  color: string;
-};
-
-type Category = {
-  slug: string;
-  name: string;
-  icon?: string;
-  iconSvg?: string;
-  description: string;
-  topics: number;
-  color: string;
-};
-
-type RecommendedTopic = {
-  id: string;
-  slug: string;
-  title: string;
-  categoryName: string;
-  categorySlug: string;
-  categoryColor: string;
-  status: 'new' | 'in-progress' | 'recommended';
-  progress?: number; // 0-100, only for in-progress
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  estimatedTime: number; // minutes
-  questionsCount: number;
-  reason?: string; // Why this is recommended
-};
+import {
+  UserProfile,
+  ContinueLearningActivity,
+  DailyChallenge,
+  QuickPractice,
+  Category,
+  RecommendedTopic,
+} from './home.models';
+import { HomeHeaderComponent } from './components/home-header/home-header.component';
+import { ContinueLearningCardComponent } from './components/continue-learning-card/continue-learning-card.component';
+import { DailyChallengeCardComponent } from './components/daily-challenge-card/daily-challenge-card.component';
+import { QuickPracticeSectionComponent } from './components/quick-practice-section/quick-practice-section.component';
+import { CategoriesSectionComponent } from './components/categories-section/categories-section.component';
+import { RecommendedTopicsSectionComponent } from './components/recommended-topics-section/recommended-topics-section.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    HomeHeaderComponent,
+    ContinueLearningCardComponent,
+    DailyChallengeCardComponent,
+    QuickPracticeSectionComponent,
+    CategoriesSectionComponent,
+    RecommendedTopicsSectionComponent,
+  ],
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
@@ -114,27 +65,6 @@ export class HomePage {
     resumeUrl: '/tabs/categories/numerical-reasoning/topics/ratios-proportions/practice',
   });
 
-  // Helper to format activity title
-  get activityTitle(): string {
-    const activity = this.continueActivity();
-    if (!activity) return 'Start Your First Lesson';
-    
-    if (activity.subtitle) {
-      return `${activity.title} - ${activity.subtitle}`;
-    }
-    return activity.title;
-  }
-
-  // Helper to format progress text
-  get progressText(): string {
-    const activity = this.continueActivity();
-    if (!activity) return '';
-    
-    if (activity.completedQuestions && activity.totalQuestions) {
-      return `${activity.completedQuestions}/${activity.totalQuestions} questions • ${activity.progress}% Complete`;
-    }
-    return `${activity.progress}% Complete`;
-  }
 
   // Daily Challenge - refreshes daily
   dailyChallenge = signal<DailyChallenge>({
@@ -295,23 +225,6 @@ export class HomePage {
     },
   ]);
 
-  // Check if daily challenge is available
-  get isDailyChallengeAvailable(): boolean {
-    const challenge = this.dailyChallenge();
-    return !challenge.completed && challenge.attempts < challenge.maxAttempts;
-  }
-
-  // Get daily challenge status text
-  get dailyChallengeStatus(): string {
-    const challenge = this.dailyChallenge();
-    if (challenge.completed) {
-      return `Completed! Score: ${challenge.score}%`;
-    }
-    if (challenge.attempts >= challenge.maxAttempts) {
-      return 'Completed for today';
-    }
-    return `${challenge.totalQuestions} questions • ${challenge.timeLimit} min`;
-  }
 
   constructor(private router: Router) {}
 
@@ -361,7 +274,7 @@ export class HomePage {
 
   startDailyChallenge() {
     const challenge = this.dailyChallenge();
-    if (!this.isDailyChallengeAvailable) {
+    if (challenge.completed || challenge.attempts >= challenge.maxAttempts) {
       return; // Already completed or no attempts left
     }
 
@@ -404,26 +317,5 @@ export class HomePage {
       'topics',
       topic.slug,
     ]);
-  }
-
-  getStatusLabel(topic: RecommendedTopic): string {
-    if (topic.status === 'new') return 'New';
-    if (topic.status === 'in-progress' && topic.progress) {
-      return `${topic.progress}% Done`;
-    }
-    if (topic.status === 'recommended' && topic.reason) {
-      return topic.reason;
-    }
-    return 'Recommended for you';
-  }
-
-  getStatusIcon(status: string): string {
-    if (status === 'new') return 'sparkles';
-    if (status === 'in-progress') return 'time';
-    return 'bulb';
-  }
-
-  getDifficultyLabel(difficulty: string): string {
-    return difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
   }
 }

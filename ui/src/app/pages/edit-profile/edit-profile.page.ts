@@ -26,6 +26,7 @@ interface AvatarOption { id: number; src: string; locked: boolean; }
   </ion-header>
 
   <ion-content class="ion-padding">
+    <form [formGroup]="form" (ngSubmit)="save()">
     <!-- Identity -->
     <ion-list inset lines="full">
       <ion-list-header>Personal Information</ion-list-header>
@@ -54,6 +55,8 @@ interface AvatarOption { id: number; src: string; locked: boolean; }
       </div>
       <ion-note class="ion-margin-top">6 avatars are free. Unlock the rest with a subscription.</ion-note>
     </div>
+      <button type="submit" style="display:none"></button>
+    </form>
   </ion-content>
   `,
   styles: [`

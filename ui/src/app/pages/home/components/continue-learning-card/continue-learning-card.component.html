@@ -1,0 +1,59 @@
+<section class="continue-learning-card">
+  @if (activity) {
+    <!-- Active Learning Card -->
+    <div class="card-header">
+      <ion-icon name="play-circle" class="header-icon"></ion-icon>
+      <span class="header-label">Continue Learning</span>
+    </div>
+
+    <div class="card-content">
+      <h3 class="activity-title">{{ activityTitle }}</h3>
+
+      <!-- Progress Bar with Animation -->
+      <div class="progress-container">
+        <div class="progress-bar-bg">
+          <div
+            class="progress-bar-fill"
+            [style.width.%]="activity!.progress"
+          ></div>
+        </div>
+        <span class="progress-text">{{ progressText }}</span>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <ion-button
+        expand="block"
+        (click)="continue.emit()"
+        class="continue-button"
+      >
+        <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        Continue
+      </ion-button>
+    </div>
+  } @else {
+    <!-- No Activity - First Lesson Prompt -->
+    <div class="card-header">
+      <ion-icon name="school" class="header-icon empty"></ion-icon>
+      <span class="header-label">Get Started</span>
+    </div>
+
+    <div class="card-content empty">
+      <h3 class="activity-title">Start Your First Lesson</h3>
+      <p class="empty-message">
+        Begin your learning journey with our comprehensive aptitude tests.
+      </p>
+    </div>
+
+    <div class="card-footer">
+      <ion-button
+        expand="block"
+        (click)="continue.emit()"
+        class="continue-button"
+      >
+        <ion-icon name="compass" slot="end"></ion-icon>
+        Explore Topics
+      </ion-button>
+    </div>
+  }
+</section>

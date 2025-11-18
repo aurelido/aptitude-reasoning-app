@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -9,13 +10,15 @@ import { categoriesRouter } from './routes/categories';
 import { topicsRouter } from './routes/topics';
 import { testsRouter } from './routes/tests';
 import { homeRouter } from './routes/home';
+import oauthRouter from './oauth/keycloakRouter';
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({ origin: ['http://localhost:4200', 'http://localhost:8100'], credentials: true }));
 app.use(express.json());
 
 // Health
@@ -24,6 +27,9 @@ app.get('/health', (_req, res) => res.json({ ok: true }));
 // Versioned API base
 const api = express.Router();
 app.use('/v1', api);
+
+// OAuth routes (PKCE flow)
+app.use('/oauth', oauthRouter);
 
 // Swagger (dev only)
 if (process.env.NODE_ENV !== 'production') {

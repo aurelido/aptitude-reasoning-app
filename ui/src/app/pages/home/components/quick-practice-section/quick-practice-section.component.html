@@ -1,0 +1,24 @@
+<section class="quick-practice-section">
+  <h3 class="section-title">Quick Practice</h3>
+
+  <div class="practice-grid">
+    @for (practice of options; track practice.id) {
+      <div
+        class="practice-card"
+        (click)="startPractice.emit(practice)"
+        [style.border-left-color]="practice.color"
+      >
+        <div class="practice-header">
+          <ion-icon
+            [name]="practice.icon"
+            class="practice-icon"
+            [style.color]="practice.color"
+          ></ion-icon>
+          <h4 class="practice-title">{{ practice.title }}</h4>
+        </div>
+        <p class="practice-description">{{ practice.description }}</p>
+        <ion-icon name="play-circle" class="practice-start-icon"></ion-icon>
+      </div>
+    }
+  </div>
+</section>

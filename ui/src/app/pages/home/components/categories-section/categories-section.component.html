@@ -1,0 +1,41 @@
+<section class="categories-section">
+  <div class="section-header">
+    <h3 class="section-title">Explore Categories</h3>
+    <ion-button fill="clear" size="small" (click)="viewAll.emit()">
+      View All
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Horizontal Scrollable Category List -->
+  <div class="categories-scroll-container">
+    <div class="categories-scroll">
+      @for (category of categories; track category.slug) {
+        <div
+          class="category-card"
+          (click)="categoryClick.emit(category)"
+        >
+          <div
+            class="category-icon-container"
+            [style.background-color]="category.color"
+          >
+            @if (category.iconSvg) {
+              <img
+                [src]="category.iconSvg"
+                [alt]="category.name"
+                class="category-icon-svg"
+              />
+            } @else if (category.icon) {
+              <ion-icon
+                [name]="category.icon"
+                class="category-icon"
+              ></ion-icon>
+            }
+          </div>
+          <h4 class="category-name">{{ category.name }}</h4>
+          <p class="category-topics">{{ category.topics }} topics</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

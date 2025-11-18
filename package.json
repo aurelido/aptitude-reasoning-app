@@ -102,6 +102,8 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "express-rate-limit": "^6.11.2",
+    "cookie-parser": "^1.4.6",
+    "jose": "^5.2.4",
     "zone.js": "~0.15.0"
   }
 }

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The backend API is implemented as a TypeScript Express server that follows the data models and API specification defined in `docs/backend-models.ts` and `docs/api-endpoints.md`.
+The backend API is implemented as a TypeScript Express server that follows the data models and API specification defined in `serve/src/backend-models.ts` and `docs/api-endpoints.md`.
 
 ## Tech Stack
 

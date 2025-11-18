@@ -1,0 +1,29 @@
+<section
+  class="daily-challenge-card"
+  [class.completed]="!isAvailable"
+  (click)="isAvailable && start.emit()"
+>
+  <div class="challenge-header">
+    <div class="header-left">
+      <ion-icon name="trophy" class="challenge-icon"></ion-icon>
+      <div>
+        <h3 class="challenge-title">{{ challenge.title }}</h3>
+        <p class="challenge-description">{{ challenge.description }}</p>
+      </div>
+    </div>
+    @if (!isAvailable) {
+      <ion-icon name="checkmark-circle" class="completed-icon"></ion-icon>
+    }
+  </div>
+
+  <div class="challenge-footer">
+    <div class="challenge-info">
+      <ion-icon name="time-outline" class="info-icon"></ion-icon>
+      <span class="info-text">{{ status }}</span>
+    </div>
+
+    @if (isAvailable) {
+      <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+    }
+  </div>
+</section>

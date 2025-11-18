@@ -27,8 +27,8 @@ type TopicData = {
   styleUrls: ['./topic.page.scss'],
 })
 export class TopicPage {
-  categorySlug: string = '';
-  topicSlug: string = '';
+  categorySlug = '';
+  topicSlug = '';
   selectedDifficulty = signal<Difficulty>('medium');
   topicData: TopicData | null = null;
 

@@ -1,0 +1,103 @@
+{
+  "realm": "aptimind",
+  "enabled": true,
+  "displayName": "APTIMIND",
+  "revokeRefreshToken": true,
+  "refreshTokenMaxReuse": 0,
+  "accessTokenLifespan": 900,
+  "ssoSessionIdleTimeout": 2592000,
+  "ssoSessionMaxLifespan": 2592000,
+  "roles": {
+    "realm": [
+      { "name": "ROLE_USER", "description": "Standard user" },
+      { "name": "ROLE_PREMIUM", "description": "Premium subscriber" },
+      { "name": "ROLE_ADMIN", "description": "Administrator" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "aptimind-ui",
+      "name": "Aptimind UI (Public, PKCE)",
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "bearerOnly": false,
+      "directAccessGrantsEnabled": false,
+      "standardFlowEnabled": true,
+      "serviceAccountsEnabled": false,
+      "implicitFlowEnabled": false,
+      "defaultClientScopes": ["web-origins", "roles", "profile", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access"],
+      "redirectUris": [
+        "http://localhost:4200/*",
+        "http://localhost:8100/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4200",
+        "http://localhost:8100"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "oauth.pkce.code.challenge.method": "S256",
+        "oauth.pkce.required": "true"
+      },
+      "protocolMappers": [
+        {
+          "name": "realm roles",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "subscription",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "subscription",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "subscription",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "country",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "country",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "country",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "progressLevel",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "progressLevel",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "progressLevel",
+            "jsonType.label": "long"
+          }
+        }
+      ]
+    }
+  ]
+}
